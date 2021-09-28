@@ -17,13 +17,8 @@ def K_Means(X_train, n_clusters, dist, n_init=1, seed=None):
         visualize_clusters(X_train, y_pred,  cluster_alg.n_clusters,cluster_alg.cluster_centers_)
 
 
-def hoora(X_train, n_clusters, n_init=1, seed=None, title_suffix=""):
+def loop_all_task(X_train, n_clusters, n_init=1, seed=None, title_suffix=""):
     X_train_eucl = np.nan_to_num(X_train, 0)
-    km, y_pred = K_Means(X_train_eucl, n_clusters, "euclidean", n_init, seed)
-    visualize_clusters(km, X_train_eucl, y_pred, title="Euclidean KMeans, not equalized" + title_suffix)
-
-    km, y_pred = K_Means(X_train, n_clusters, "dtw", n_init, seed)
-    visualize_clusters(km, X_train, y_pred, title="DTW KMeans, not equalized" + title_suffix)
-
-    km, y_pred = K_Means(X_train, n_clusters, "cosine", n_init, seed)
-    visualize_kernel_kmeans(km, X_train, y_pred, title="Kernel KMeans, not equalized" + title_suffix)
+    K_Means(X_train_eucl, n_clusters, "euclidean", n_init, seed)
+    K_Means(X_train, n_clusters, "dtw", n_init, seed)
+    K_Means(X_train, n_clusters, "cosine", n_init, seed)

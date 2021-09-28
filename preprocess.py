@@ -3,6 +3,7 @@ import pandas as pd
 import datetime
 from datetime import datetime
 from tslearn.utils import to_time_series_dataset
+import math
 
 def load_data_split3(path_split3):
     con = sqlite3.connect(path_split3)
@@ -49,9 +50,13 @@ def group_date(df):
                                              axis=1)
     return grop_ses
 
-def prepare_for_train(grop_ses):
+def prepare_for_train(grop_ses, abs=False):
     X = []
     for elem in (grop_ses["price"]):
-        X.append(elem)
+        if abs:
+            el=[math.fabs(_) for _ in elem]
+            X.append(el)
+        else:
+            X.append(elem)
     X = to_time_series_dataset(X)
     return X
